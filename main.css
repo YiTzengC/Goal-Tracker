@@ -3,7 +3,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
-    background-size:cover;
+    background-size: cover;
 
 }
 
@@ -13,11 +13,9 @@ h1 {
     width: 100%;
     margin: 0% auto;
     padding: .5rem 0;
-    /* border-radius: .3rem; */
     color: white;
     font-size: 4rem;
     font-family: 'Lora', serif;
-    /* border-right: none; */
 }
 
 h2 {
@@ -38,63 +36,74 @@ h2 {
     height: 45rem;
     margin: 2% auto 0 auto;
     border-radius: .3rem;
-    padding: 1rem 3rem 0 3rem ;
+    padding: 1rem 3rem 0 3rem;
     border: .5px white solid;
 }
+
 #icon-left {
     transform: scaleX(-1);
 }
-.list-left{
+
+.list-left {
     margin: 5% 2.5% 0 0;
     padding: 0 0;
     border-radius: .2rem;
 }
-.list-left > ul {
+
+.list-left>ul {
     height: 30rem;
-    overflow:scroll;
+    overflow: scroll;
 }
-.list-left > ul > li {
+
+.list-left>ul>li {
     background-color: rgba(0, 0, 0, 0.603);
     color: white;
-    border-color: white; 
+    border-color: white;
     border-right: none;
     border-left: none;
 }
-.list-left > ul > li:hover {
+
+.list-left>ul>li:hover {
     background-color: rgba(255, 255, 255, 0.603);
     color: black;
 }
-.list-right{
+
+.list-right {
     margin: 5% 0 0 2.5%;
     border: .1rem white solid;
     border-radius: .2rem;
     border-top: none;
 }
-.list-right > ul {
+
+.list-right>ul {
     height: 30rem;
-    overflow:scroll;
+    overflow: scroll;
 }
-.list-right > ul > li {
+
+.list-right>ul>li {
     color: white;
-    border:  none;
+    border: none;
     background: none;
     border-bottom: .1rem white solid;
 }
-.list-right > ul > li:hover {
+
+.list-right>ul>li:hover {
     color: white;
     background-color: black;
 }
 
 .li-left {
-    display: flex; 
-    justify-content: space-between; 
+    display: flex;
+    justify-content: space-between;
     font-size: x-large;
 }
+
 .li-right {
-    display: flex; 
-    justify-content: space-between; 
+    display: flex;
+    justify-content: space-between;
     font-size: x-large;
 }
+
 .li-right span {
     text-decoration: line-through;
     text-decoration-color: red;
