@@ -1,6 +1,6 @@
 # Goal-Tracker
 COMP1073 - Assignment 2
 # Live Link
-[link to be added here]
+http://15.222.122.223/~Yi200437546/Goal-Tracker/
 # Code Review
-[youtube link]
+https://youtu.be/4PRSoILtLeU
