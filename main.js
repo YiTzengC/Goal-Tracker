@@ -1,14 +1,15 @@
 
 const btnNewGoal = document.querySelector('#buttonNewGoal');
 btnNewGoal.addEventListener('click', addNewGoal);
-
-const AudioContext = window.AudioContext || window.webkitAudioContext;
+//Web Audio API
 const audioContext = new AudioContext();
 const audio = document.querySelector('audio');
 const track = audioContext.createMediaElementSource(audio);
 track.connect(audioContext.destination);
 //border flash
 window.setInterval(borderColor, 1000);
+
+let targetText = null;
 
 function addNewGoal(){
     let goal = document.querySelector('input');
@@ -18,6 +19,14 @@ function addNewGoal(){
         let pendingGoal = document.querySelector('.list-left > ul');
         let li = document.createElement('li');
         li.className = "list-group-item li-left"
+        // drag api
+        li.draggable = true;
+        li.addEventListener('dragstart', drag, false);
+        li.addEventListener('drop', drop, false);
+        li.addEventListener('dragend', dragEnd, false);
+        li.addEventListener('dragover', dragOver, false);
+        li.addEventListener('dragenter', dragEnter, false);
+        li.addEventListener('dragleave', dragLeave, false);
         // retrive text from input
         let span = document.createElement('span');
         span.innerText = goal.value;
@@ -36,13 +45,18 @@ function addNewGoal(){
         let btnDlt = document.createElement('button');
         btnDlt.type = 'button';
         btnDlt.className = 'btn btn-outline-danger'
-        btnDlt.innerHTML = '<i class=\'bi bi-x-circle-fill\'></i> Delete';
+        btnDlt.innerHTML = '<i class=\'bi bi-x-circle-fill\'></i>';
         btnDlt.onclick = deleteList;
         //add elements DOM
         pendingGoal.appendChild(li)
         li.appendChild(div);
         div.appendChild(btnCplt);
         div.appendChild(btnDlt);
+
+        audioContext.resume().then(() => {
+            audio.src = 'sound/goal.mp3';
+            audio.play();
+        });
     }
     
 }
@@ -51,18 +65,23 @@ function completeGoal() {
     let completion = document.querySelector('.list-right > ul');
     let li = this.parentElement.parentElement;
     li.className = "list-group-item li-right"
+    // remove complete button
     this.remove();
     completion.appendChild(li);
     //play audio
-    audio.src = 'sound/complete.mp3';
-    audio.play();
+    audioContext.resume().then(() => {
+        audio.src = 'sound/complete.mp3';
+        audio.play();
+    });
 }
 
 function deleteList(){
     this.parentElement.parentElement.remove()
     //play audio
-    audio.src = 'sound/delete.mp3';
-    audio.play();
+    audioContext.resume().then(() => {
+        audio.src = 'sound/delete.mp3';
+        audio.play();
+    });
 }
 
 function borderColor(){
@@ -71,4 +90,39 @@ function borderColor(){
 
 function randomInt() {
     return Math.floor(Math.random()*256);
+}
+
+function drag (event){
+    event.dataTransfer.effectAllowed = 'move'
+    event.dataTransfer.setData('text', this.querySelector('span').innerText);
+    this.style.opacity = '0.4'
+    // console.log(this.querySelector('span').innerText);
+}
+function dragEnd (event){
+    this.style.opacity = '1';
+    if(targetText != null)
+        this.querySelector('span').innerText = targetText;
+}
+
+function drop(event){
+    event.preventDefault();
+    let draggedText = event.dataTransfer.getData('text');
+    targetText =  this.querySelector('span').innerText;
+    this.querySelector('span').innerText = draggedText;
+    this.style.borderStyle = '';
+    audioContext.resume().then(() => {
+        audio.src = 'sound/switch.mp3';
+        audio.play();
+    });
+}
+
+function dragOver(event){
+    event.preventDefault();
+}
+
+function dragEnter(event){
+    this.style.borderStyle = 'dotted';
+}
+function dragLeave(event){
+    this.style.borderStyle = '';
 }
