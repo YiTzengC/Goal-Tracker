@@ -1,4 +1,3 @@
-
 const btnNewGoal = document.querySelector('#buttonNewGoal');
 btnNewGoal.addEventListener('click', addNewGoal);
 //Web Audio API
@@ -11,9 +10,9 @@ window.setInterval(borderColor, 1000);
 
 let targetText = null;
 
-function addNewGoal(){
+function addNewGoal() {
     let goal = document.querySelector('input');
-    if(goal.value.trim() === '')
+    if (goal.value.trim() === '')
         document.querySelector('button').click();
     else {
         let pendingGoal = document.querySelector('.list-left > ul');
@@ -40,7 +39,7 @@ function addNewGoal(){
         btnCplt.type = 'button';
         btnCplt.className = 'btn btn-outline-success'
         btnCplt.innerHTML = '<i class=\'bi bi-check-circle-fill\'></i> Complete';
-        btnCplt.onclick =  completeGoal;
+        btnCplt.onclick = completeGoal;
         // configure delete button
         let btnDlt = document.createElement('button');
         btnDlt.type = 'button';
@@ -52,13 +51,13 @@ function addNewGoal(){
         li.appendChild(div);
         div.appendChild(btnCplt);
         div.appendChild(btnDlt);
-
+        //play audio
         audioContext.resume().then(() => {
             audio.src = 'sound/goal.mp3';
             audio.play();
         });
     }
-    
+
 }
 
 function completeGoal() {
@@ -75,7 +74,7 @@ function completeGoal() {
     });
 }
 
-function deleteList(){
+function deleteList() {
     this.parentElement.parentElement.remove()
     //play audio
     audioContext.resume().then(() => {
@@ -84,45 +83,47 @@ function deleteList(){
     });
 }
 
-function borderColor(){
+function borderColor() {
     document.querySelector('.content').style.borderColor = `rgb(${randomInt()}, ${randomInt()}, ${randomInt()})`
 }
 
 function randomInt() {
-    return Math.floor(Math.random()*256);
+    return Math.floor(Math.random() * 256);
 }
 
-function drag (event){
+function drag(event) {
     event.dataTransfer.effectAllowed = 'move'
     event.dataTransfer.setData('text', this.querySelector('span').innerText);
     this.style.opacity = '0.4'
-    // console.log(this.querySelector('span').innerText);
 }
-function dragEnd (event){
+
+function dragEnd(event) {
     this.style.opacity = '1';
-    if(targetText != null)
+    if (targetText != null)
         this.querySelector('span').innerText = targetText;
 }
 
-function drop(event){
+function drop(event) {
     event.preventDefault();
     let draggedText = event.dataTransfer.getData('text');
-    targetText =  this.querySelector('span').innerText;
+    targetText = this.querySelector('span').innerText;
     this.querySelector('span').innerText = draggedText;
     this.style.borderStyle = '';
+    //play audio
     audioContext.resume().then(() => {
         audio.src = 'sound/switch.mp3';
         audio.play();
     });
 }
 
-function dragOver(event){
+function dragOver(event) {
     event.preventDefault();
 }
 
-function dragEnter(event){
+function dragEnter(event) {
     this.style.borderStyle = 'dotted';
 }
-function dragLeave(event){
+
+function dragLeave(event) {
     this.style.borderStyle = '';
 }
