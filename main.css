@@ -108,3 +108,25 @@ h2 {
     text-decoration: line-through;
     text-decoration-color: red;
 }
+
+.youtube-container {
+    margin-top: 2rem;
+    width: 100%;
+    height: 30rem;
+    background-color: #ddddddb5;
+    padding: 2rem;
+}
+
+#player {
+    width: 60%;
+    height: 100%;
+    /* margin: 0 auto; */
+}
+
+.access {
+    padding: 0 0 0 2rem;
+    height: 100%;
+    width: 40%;
+}
+
+
