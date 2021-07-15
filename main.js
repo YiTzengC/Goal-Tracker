@@ -55,7 +55,6 @@ function addNewGoal() {
       audio.src = "sound/goal.mp3";
       audio.play();
     });
-    player.playVideo();
   }
 }
 
